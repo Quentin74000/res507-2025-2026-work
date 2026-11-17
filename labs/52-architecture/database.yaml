@@ -1,4 +1,3 @@
-cat > database.yaml << 'EOF'
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -68,10 +67,3 @@ spec:
     - port: 5432
       targetPort: 5432
   type: ClusterIP
-EOF
-
-kubectl apply -f database.yaml
-kubectl rollout status deployment/quote-db --timeout=180s
-kubectl get pvc quote-db-data | tee db-evidence.txt
-kubectl get pods -l app=quote-db | tee -a db-evidence.txt
-kubectl logs deployment/quote-db | tail -n 5
